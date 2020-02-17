@@ -21,7 +21,7 @@ The data were processed as seen below:
 library(data.table)
 library(maps)
 library(ggmap)
-dt<-fread('/Users/jamesharris/Documents/R/CrimeAnalysis/data/crimereport.csv')
+dt<-fread('data/crimereport.csv')
 locations<-dt[,.(agency_jurisdiction)]
 for (i in  1:nrow(dt)){
   result <- suppressMessages(geocode(dt$agency_jurisdiction[i], output = "latlona", source = "google"))
@@ -30,7 +30,7 @@ for (i in  1:nrow(dt)){
   dt$geoAddress[i] <- as.character(result[3])
 }
 dt<-na.omit(dt)
-fwrite(dt,'/Users/jamesharris/Documents/R/CrimeAnalysis/data/crimereport_processed.csv')
+fwrite(dt,'data/crimereport_processed.csv')
 ```
 
 ## Training the Model

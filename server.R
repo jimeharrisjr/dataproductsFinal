@@ -11,6 +11,8 @@ library(maps)
 library(mapdata)
 library(ggrepel)
 library(rnaturalearthdata)
+library(caret)
+library(rgeos)
 server <- function(input, output, session) { # need session for interactive stuff
   
   v <- reactiveValues(homicides_percapitaMean = NULL, assaults_percapitaMean=NULL, rapes_percapitaMean=NULL, mapData=NULL) # Reactive Values can be read and written to by any function
