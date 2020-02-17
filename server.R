@@ -81,7 +81,7 @@ server <- function(input, output, session) { # need session for interactive stuf
     # The below will create (render) the dynamic UI
     fluidRow( # create two plots in a fluid row
       box(selectInput("selectedcity", "Select city to display",choices = choices),
-          box(title='Instructions','Select the city you wish to see. Past values are shown, then values predicted with a Random Forest model. As you change the city, the projection will be recalculated', status='info',width=12),
+          box(title='Instructions','Select the city you wish to see. Past values (1975-2014) are shown in red, then future values values (blue) predicted with a Random Forest model. As you change the city, the projection will be recalculated', status='info',width=12),
           plotOutput('valuePlot'), # Set Box Details
           title = NULL, footer = NULL, status = NULL,
           solidHeader = FALSE, background = NULL, width = 12, height = NULL,
@@ -109,7 +109,7 @@ server <- function(input, output, session) { # need session for interactive stuf
           collapsible = FALSE, collapsed = FALSE,  
           sliderInput('long',"Longitude Range",min = limx[1]-5, max = limx[2]+5, value = (limx)),
           sliderInput('lat',"Lattitude Range",min = limy[1]-5, max = limy[2]+5, value = (limy))),
-      box(title = 'Instructions','Use the sliders and selectors above to limit and view the mapped data by year and crime problem', status = 'info', width=12),
+      box(title = 'Instructions','Use the sliders and selectors above to limit the map and view the mapped data by year and crime problem. Each change of lat/long or crime problem will update the map', status = 'info', width=12),
       uiOutput('heatMap'),
       
       
