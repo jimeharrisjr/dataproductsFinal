@@ -13,6 +13,7 @@ library(ggrepel)
 library(rnaturalearthdata)
 library(caret)
 library(rgeos)
+library(randomForest)
 server <- function(input, output, session) { # need session for interactive stuff
   
   v <- reactiveValues(homicides_percapitaMean = NULL, assaults_percapitaMean=NULL, rapes_percapitaMean=NULL, mapData=NULL) # Reactive Values can be read and written to by any function
@@ -69,16 +70,23 @@ server <- function(input, output, session) { # need session for interactive stuf
       l$agency_code<-as.factor(l$agency_code)
       l$population<-as.numeric(predict(popmod,l))
       predl<-predict(v$preproc, l)
+      predl2<-predict(v$preproc,datacit)
       preds<-as.numeric(predict(v$model,predl))
+      preds2<-as.numeric(predict(v$model,predl2))
       l$crimes_percapita<-preds
       l$color='red'
+      xs2<-datacit[,report_year]
       datacit<-rbind(datacit,l)
       xs<-c(datacit[,report_year], l$report_year)
       ys<-c(datacit[,crimes_percapita], preds)
+      
+      ys2<-preds2
+      
       cs<-c(rep('red',nrow(datacit)), rep('blue',length(preds)))
       title<-paste('Crime Rate',input$selectedcity)
       plot(x=xs,y=ys,col=cs,  main=title, pch=19)
-      legend('topright',legend=c('Recorded','Predicted'), fill=c('red','blue'))
+      points(x=xs2,y=ys2,col='blue', pch=19)
+      legend('topright',legend=c('Actual','Predicted'), fill=c('red','blue'))
     })
     # The below will create (render) the dynamic UI
     fluidRow( # create two plots in a fluid row

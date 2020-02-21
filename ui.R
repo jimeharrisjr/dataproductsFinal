@@ -12,6 +12,7 @@ library(mapdata)
 library(ggrepel)
 library(rnaturalearthdata)
 library(rgeos)
+library(randomForest)
 
 ui <- dashboardPage(title='Template',skin='blue', # This title sets the tab title, skin default is blue, but there are also black, purple, green, red, and yellow. 
                     dashboardHeader(title=tags$a(href='https://www.google.com',tags$script(src = "message-handler.js"),
